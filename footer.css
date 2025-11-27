@@ -1,0 +1,32 @@
+footer {
+    background-color: var(--color-card-bg);
+    padding: 40px 5%;
+    margin-top: 40px;
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+}
+
+.footer-columns h4 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.footer-columns ul {
+    list-style: none;
+}
+
+.footer-columns ul li {
+    margin-bottom: 8px;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+    color: #888;
+}

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteX Planet - Computers, Accessories, and Security Solutions (Dynamic)</title>
+    
+    <style>
+        /* Base Setup */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f5f5f5;
+            color: #333; 
+        }
+        .container { 
+            width: 95%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        /* --- Animations --- */
+        @keyframes logoPulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes buttonGlow { 0% { box-shadow: 0 4px 6px rgba(0,0,0,0.1); } 50% { box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); } 100% { box-shadow: 0 4px 6px rgba(0,0,0,0.1); } }
+
+        /* --- Header and Search Bar Styles --- */
+        .header { 
+            background-color: #007bff; color: white; padding: 15px 40px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; 
+            align-items: center; justify-content: space-between; 
+            animation: slideDown 0.7s ease-out forwards; 
+        }
+        .logo-area { display: flex; align-items: center; }
+        .header img { 
+            height: 40px; width: 40px; margin-right: 15px; 
+            border-radius: 50%; 
+            animation: logoPulse 4s infinite ease-in-out; 
+            object-fit: cover; 
+        }
+        .header h1 { font-size: 1.8em; margin: 0; }
+        .search-area { display: flex; gap: 10px; }
+        .search-area input[type="text"] { padding: 8px 15px; border: none; border-radius: 5px; width: 250px; font-size: 1em; transition: width 0.3s, box-shadow 0.3s; }
+        .search-area input[type="text"]:focus { width: 300px; box-shadow: 0 0 8px rgba(255, 193, 7, 0.8); outline: none; }
+        .search-area button { background-color: #ffc107; color: #333; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s, transform 0.1s; }
+        .search-area button:hover { background-color: #e0a800; transform: scale(1.05); }
+        .search-area button:active { transform: scale(0.98); }
+        
+        /* --- Product Grid Styles --- */
+        h2 { text-align: center; color: #007bff; margin-bottom: 30px; font-size: 2em; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .product-card { 
+            background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; 
+            display: flex; flex-direction: column; box-shadow: 0 4px 8px rgba(0,0,0,0.05); 
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s;
+            height: 100%; opacity: 0; animation: fadeIn 1s forwards; 
+        }
+
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 18px rgba(0,0,0,0.1); }
+        .product-image-area { height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; overflow: hidden; }
+        .product-image-area img { 
+            max-width: 100%; max-height: 100%; object-fit: contain; 
+            border-radius: 8px; transition: transform 0.5s ease-in-out; 
+        }
+        .product-card:hover .product-image-area img { transform: scale(1.15) rotate(1deg); }
+
+        .product-details { flex-grow: 1; }
+        h3 { color: #007bff; font-size: 1.4em; margin-top: 0; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; }
+        h4 { font-size: 1.1em; color: #555; margin: 10px 0; }
+        ul { list-style-type: none; padding: 0; columns: 1; }
+        /* Removed list-style dots for product specs, as we use ::before for blue dots */
+        ul li { padding-left: 0; margin-bottom: 5px; font-size: 0.9em; color: #666; transition: color 0.2s; }
+        .product-card:hover ul li { color: #333; }
+        ul li::before { content: "•"; color: #007bff; font-weight: bold; display: block; width: 1em; margin-left: -1em; }
+
+        .price-section { margin-top: auto; padding: 15px 0 0 0; border-top: 1px solid #e0e0e0; text-align: center; }
+        .price-section p { font-size: 1.1em; font-weight: bold; color: #dc3545; margin: 0 0 10px 0; animation: buttonGlow 3s infinite; }
+        .whatsapp-button { 
+            display: block; background-color: #25d366; color: white; padding: 10px 15px; 
+            text-decoration: none; border-radius: 5px; font-size: 1em; font-weight: bold; 
+            transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s; 
+            box-shadow: 0 3px #128c7e; 
+        }
+        .whatsapp-button:hover { background-color: #128c7e; box-shadow: 0 1px #128c7e; transform: translateY(2px); }
+
+        /* --- Footer Styles --- */
+        .footer-area {
+            background-color: #d1d5db; 
+            color: #333;
+            padding: 40px 20px;
+            margin-top: 50px;
+            font-size: 0.95em;
+            opacity: 0; 
+            animation: fadeIn 1s 2s forwards;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            max-width: 1000px; 
+            margin: 0 auto;
+            gap: 40px; 
+        }
+
+        .footer-column h4 {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #007bff; 
+            margin-bottom: 15px;
+            border-bottom: 2px solid #b0b5bd; 
+            padding-bottom: 5px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            color: #4b5563; 
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+        }
+
+        .footer-column ul li a:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+        
+        /* Copyright Section */
+        .copyright-bar {
+            text-align: center;
+            padding: 15px 0 0;
+            border-top: 1px solid #b0b5bd;
+            margin-top: 20px;
+            color: #555;
+            font-size: 0.85em;
+        }
+
+        /* Icon Styling for Footer Links */
+        .link-icon {
+            margin-right: 8px;
+            font-size: 1.1em;
+            width: 20px; 
+            display: inline-block;
+            text-align: center;
+            color: #007bff; /* Use primary blue for clean look */
+        }
+        /* Specific override for social media icons */
+        .social-icon {
+            color: inherit; /* Social icons will get color from the list below */
+            font-weight: bold;
+        }
+        
+        /* --- About Us Styling & Control --- */
+        .about-us-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            line-height: 1.6;
+            animation: fadeIn 1s forwards;
+        }
+
+        .about-us-content h3 {
+            color: #007bff;
+            font-size: 1.8em;
+            margin-top: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .about-us-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        #about-us-page {
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-area">
+            <img src="logo.jpeg" alt="ByteX Planet Logo">
+            <h1 onclick="showMainContent()">ByteX Planet</h1>
+        </div>
+        
+        <div class="search-area">
+            <input type="text" placeholder="Search products...">
+            <button id="search-btn">Search</button>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div id="about-us-page">
+            <div class="about-us-content">
+                <h2>🌟 About ByteX Planet: Your Digital Hub in Nepal</h2>
+                
+                <h3>Our Mission</h3>
+                <p>
+                    ByteX Planet was founded on the belief that access to **premium, reliable technology** should be easy and affordable for everyone in Nepal. We strive to be more than just a seller; we aim to be your trusted partner in navigating the digital world, providing cutting-edge devices, essential accessories, and robust security solutions.
+                </p>
+                <blockquote style="border-left: 4px solid #ffc107; padding-left: 15px; margin: 15px 0; color: #555;">
+                    **Our Promise:** To deliver genuine products, transparent pricing, and unparalleled customer service, ensuring you get the best value for your digital investment.
+                </blockquote>
+
+                <h3>Who We Are</h3>
+                <p>
+                    We are a dedicated team of tech enthusiasts and professionals committed to sourcing and providing the latest and greatest in IT hardware. We understand the specific needs of the Nepali market—from students and casual users to hardcore gamers and corporate clients—and we curate our product lineup to meet those diverse demands.
+                </p>
+
+                <h3>🚀 What We Offer</h3>
+                <p>At ByteX Planet, our inventory is carefully segmented to cover all your computing needs:</p>
+                <ul>
+                    <li>**High-Performance Computing:** A selection of the newest Laptops (including gaming and slim ultrabooks) and essential Monitors.</li>
+                    <li>**Peripherals & Accessories:** Top-tier Gaming Accessories (Mice, Headsets, Gamepads) and everyday productivity tools.</li>
+                    <li>**Security Solutions:** Reliable 4K CCTV Systems to ensure the safety and monitoring of your home or business.</li>
+                    <li>**Professional Services:** Expertise in setup, consultation, and after-sales support to keep your technology running smoothly.</li>
+                </ul>
+
+                <p style="text-align: center; margin-top: 40px; font-weight: bold; color: #007bff;">
+                    Thank you for choosing ByteX Planet. We look forward to powering your digital life!
+                </p>
+                <button onclick="showMainContent()" class="whatsapp-button" style="background-color: #007bff; margin-top: 20px; width: 100%;">← Back to Products</button>
+            </div>
+        </div>
+
+        <div id="main-content">
+            <h2>🚀 Our Featured Products</h2>
+            <div class="product-grid" id="product-grid-container">
+                </div> 
+        </div>
+    </div> 
+    
+    <div class="footer-area">
+        <div class="footer-grid">
+
+            <div class="footer-column">
+                <h4>Information</h4>
+                <ul>
+                    <li>
+                        <a href="#" onclick="showAboutUs(event)">
+                            <span class="link-icon">ⓘ</span> About Us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li>
+                        <a href="#" onclick="filterProducts('Laptops', event)">
+                            <span class="link-icon">💻</span> Laptops
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="filterProducts('Monitors', event)">
+                            <span class="link-icon">🖥️</span> Monitors
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="filterProducts('Macbook', event)">
+                            <span class="link-icon">🍎</span> Macbook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="filterProducts('CCTV', event)">
+                            <span class="link-icon">📹</span> CCTV
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="filterProducts('Accessories', event)">
+                            <span class="link-icon">🖱️</span> Accessories
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Connect With Us</h4>
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com/profile.php?id=61584272007046" target="_blank">
+                            <span class="social-icon" style="color:#1877F2;">f</span> Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/bytex_planet?igsh=MTk5YjRmMHZzbTV6Zw==" target="_blank">
+                            <span class="social-icon" style="color:#C13584;">@</span> Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.tiktok.com/@bytex.planet?_r=1&_t=ZS-91jssnj3OIz" target="_blank">
+                            <span class="social-icon" style="color:#000000;">♬</span> Tiktok
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/9779826949133" target="_blank">
+                            <span class="social-icon" style="color:#25D366;">✆</span> Whatsapp
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright-bar">
+            <p>&copy; 2025 ByteX Planet. All rights reserved. Computers, Accessories, and Security Solutions.</p>
+            <p>📧 Email: bytexplanet.np@gmail.com | 📞 Contact: 9826949133</p>
+        </div>
+    </div>
+    <script>
+        // --- 1. Product Data (11 Products with Categories, including Macbook) ---
+        const products = [
+            // Laptops (3)
+            { id: 1, name: "Acer Nitro V 16 2024 Gaming Laptop", image: "https://lnithub.com.np/wp-content/uploads/2025/09/acer-nitro-v-15-2024-price-in-nepal_4_1.jpg", specs: "Key Specifications:", features: ["AMD Ryzen 7 8845HS Processor", "NVIDIA GeForce RTX 4050 6GB", "16GB RAM, 512GB SSD Storage", "16-inch WUXGA (1920 x 1200) IPS 165Hz", "2024 AI-integrated Gaming Laptop"], color: "#25d366", boxShadow: "#128c7e", category: "Laptops" },
+            { id: 2, name: "Lenovo IdeaPad Slim 3 Everyday Laptop", image: "https://lnithub.com.np/wp-content/uploads/2025/09/lenovo-ideapad-slim-3-15iru9-price-in-nepal-768x494.jpg", specs: "Key Features:", features: ["**Processor:** Intel Core i5 / Core i3 Series", "**RAM/Storage:** 8GB DDR4 RAM, 512GB NVMe SSD", "**Display:** 15.6-inch Full HD Anti-Glare Screen", "**Design:** Slim, lightweight chassis (under 1.8kg)", "**Features:** Privacy Shutter for Webcam"], color: "#17a2b8", boxShadow: "#138496", category: "Laptops" },
+            { id: 6, name: "Acer Aspire 3 A325 Everyday Laptop", image: "https://lnithub.com.np/wp-content/uploads/2025/10/onin_acer-aspire-3-a325-price-in-nepal-2025-768x768.webp", specs: "Standard Specifications:", features: ["Intel Core i3 or equivalent AMD CPU", "8GB DDR4 RAM (Expandable)", "Fast 256GB/512GB SSD Storage", "15.6-inch Full HD (1920x1080) Display", "Windows 11 Home Pre-installed"], color: "#25d366", boxShadow: "#128c7e", category: "Laptops" },
+
+            // Macbook (1)
+            { id: 11, name: "Apple MacBook Pro 14-inch M3 Chip (Latest Model)", image: "https://lnithub.com.np/wp-content/uploads/2025/11/33519851694-1.jpg", specs: "Key Specifications:", features: ["Apple M3 Pro/Max Chip", "14.2-inch Liquid Retina XDR Display (120Hz)", "18GB Unified RAM (Configurable)", "512GB/1TB Ultrafast SSD Storage", "Up to 18 hours of battery life"], color: "#555555", boxShadow: "#333333", category: "Macbook" },
+
+
+            // Monitors (1)
+            { id: 10, name: "Dahua DHI-LM27-C201P 27-inch Curved Monitor", image: "https://lnithub.com.np/wp-content/uploads/2025/11/DHI-LM27-C201P-dahua-monitor-buy-in-nepal-768x768.webp", specs: "Display Features:", features: ["27-inch Curved VA Panel (1500R/1800R)", "Full HD Resolution (1920x1080)", "75Hz Refresh Rate / 5ms Response Time", "Wide Viewing Angle (178°/178°)", "Slim Bezel Design with Tilt Adjustment"], color: "#4CAF50", boxShadow: "#388E3C", category: "Monitors" },
+
+            // CCTV (1)
+            { id: 4, name: "Professional 4K CCTV System", image: "https://lnithub.com.np/wp-content/uploads/2020/12/4K-Cameras.jpg", specs: "System Features:", features: ["Crystal-clear 4K Ultra HD video quality", "24/7 Night Vision and Smart Motion Detection", "Remote Live Viewing via mobile app (Android/iOS)", "Weatherproof IP66/IP67 rated cameras", "Two-Way Audio for communication/deterrence"], color: "#00bcd4", boxShadow: "#0097a7", category: "CCTV" },
+
+            // Accessories (5)
+            { id: 3, name: "Canon CanoScan LiDE 300 Scanner", image: "https://lnithub.com.np/wp-content/uploads/2025/11/canon-lide-300-removebg-preview.png", specs: "Key Features:", features: ["2400 x 2400 dpi optical resolution", "Scans an A4 page in ~10 seconds", "USB Powered (no separate AC adapter)", "4 quick EZ Buttons for Auto Scan, PDF, etc.", "Compact, sleek, and space-saving design"], color: "#6f42c1", boxShadow: "#563d7c", category: "Accessories" },
+            { id: 5, name: "Fantech Phantom II VX6 Mouse", image: "https://lnithub.com.np/wp-content/uploads/2025/11/Lucid_Origin_A_highly_detailed_image_of_the_Fantech_Phantom_II_0.jpg", specs: "Key Features:", features: ["High-Precision Gaming Sensor for accurate tracking", "RGB Lighting Effects with vibrant multicolor glow", "Ergonomic Design for comfortable long gaming sessions", "Durable Switches with long lifespan", "7 Programmable Buttons for custom control", "Adjustable DPI Levels (up to gaming-grade sensitivity)", "USB Wired Connection for zero-lag performance", "Lightweight Build for quick and effortless movement"], color: "#dc3545", boxShadow: "#c82333", category: "Accessories" },
+            { id: 7, name: "HyperX Cloud II Gaming Headset", image: "https://lnithub.com.np/wp-content/uploads/2025/11/692bca2e1de9a526a1f6db9f1c486015-1.jpg", specs: "Key Features:", features: ["Driver size: 53 mm", "Frequency response: 15 Hz – 25 kHz", "Impedance: 60 Ω", "Microphone: Detachable noise-cancelling mic", "Surround sound: Virtual 7.1 (via USB control box)"], color: "#fd7e14", boxShadow: "#e86800", category: "Accessories" },
+            { id: 8, name: "Fantech GP13 Shooter II Gamepad", image: "https://lnithub.com.np/wp-content/uploads/2025/11/Lucid_Origin_A_detailed_photo_of_the_Fantech_GP13_Shooter_II_G_3-768x768.jpg", specs: "Controller Specifications:", features: ["Wired connection for lag-free gaming", "Vibration feedback for immersive experience", "Ergonomic design for comfortable grip", "Dual analog sticks and precise D-pad", "Compatible with PC (XInput and DInput)"], color: "#9932CC", boxShadow: "#6A0DAD", category: "Accessories" },
+            { id: 9, name: "Logitech G PRO X Gaming Headset", image: "https://lnithub.com.np/wp-content/uploads/2025/11/image-3.jpg", specs: "PRO Grade Audio:", features: ["Detachable Blue VO!CE microphone technology", "DTS Headphone:X 2.0 7.1 surround sound", "Next-gen 50 mm PRO-G drivers", "Premium leatherette and cloth earpads", "Durable steel and aluminum construction"], color: "#000000", boxShadow: "#444444", category: "Accessories" }
+        ];
+
+        // Global variable to track the current active filter
+        let currentFilter = 'All'; 
+
+        // --- 2. Rendering Function ---
+        const gridContainer = document.getElementById('product-grid-container');
+
+        function renderProducts(productList, filterName) {
+            gridContainer.innerHTML = ''; 
+
+            let productHTML = '';
+            productList.forEach((product, index) => {
+                const featuresList = product.features.map(feature => `<li>${feature}</li>`).join('');
+                const whatsappMessage = `I am interested in the ${product.name}.`;
+                const whatsappURL = `https://wa.me/9779826949133?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                const animationDelay = (0.8 + index * 0.2) + 's';
+                
+                productHTML += `
+                    <div class="product-card" style="animation-delay: ${animationDelay};">
+                        <div class="product-image-area">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-details">
+                            <h3>${product.name}</h3>
+                            <h4>${product.specs}</h4>
+                            <ul>
+                                ${featuresList}
+                            </ul>
+                        </div>
+                        <div class="price-section">
+                            <p>Price: **Contact us for the best price!**</p>
+                            <a href="${whatsappURL}" 
+                                target="_blank" 
+                                class="whatsapp-button" 
+                                style="background-color: ${product.color}; box-shadow: 0 3px ${product.boxShadow};">
+                                📞 Order Now on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            gridContainer.innerHTML = productHTML;
+            
+            // Update the main heading to reflect the filter
+            const heading = document.querySelector('#main-content h2');
+            heading.textContent = filterName === 'All' 
+                ? `🚀 Our Featured Products (${productList.length} Items)` 
+                : `🔍 ${filterName} (${productList.length} Items)`;
+        }
+
+        // --- 3. Filtering Functionality ---
+        function filterProducts(category, event) {
+            if (event) {
+                event.preventDefault(); // Stop the default link action
+            }
+
+            // 1. Hide About Us and show main content
+            showMainContent(false); // Pass false to prevent full render
+
+            // 2. Set the global filter
+            currentFilter = category;
+
+            // 3. Filter the products array
+            const filtered = products.filter(product => product.category === category);
+            
+            // 4. Render the filtered list
+            renderProducts(filtered, category);
+        }
+        
+        // --- 4. Search Functionality ---
+        function handleSearch() {
+            const searchInput = document.querySelector('.search-area input[type="text"]').value.toLowerCase();
+            
+            // Clear current filter and return to main content view
+            showMainContent(false); // Pass false to prevent full render
+            currentFilter = 'All'; 
+
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchInput) ||
+                product.features.some(feature => feature.toLowerCase().includes(searchInput))
+            );
+
+            renderProducts(filteredProducts, 'Search Results');
+
+            const resultCount = filteredProducts.length;
+            const heading = document.querySelector('#main-content h2');
+            heading.textContent = resultCount > 0 
+                ? `🔍 Showing ${resultCount} Results for "${searchInput}"` 
+                : `❌ No results found for "${searchInput}"`;
+        }
+        
+        // --- 5. Page Switching Functions ---
+        const mainContent = document.getElementById('main-content');
+        const aboutUsPage = document.getElementById('about-us-page');
+
+        function showAboutUs(event) {
+            event.preventDefault(); 
+            mainContent.style.display = 'none';
+            aboutUsPage.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        }
+
+        function showMainContent(shouldRenderAll = true) {
+            mainContent.style.display = 'block';
+            aboutUsPage.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            
+            if (shouldRenderAll) {
+                // Render ALL products when returning to main content
+                renderProducts(products, 'All');
+                currentFilter = 'All';
+            }
+        }
+
+        // --- 6. Initial Load and Event Listeners ---
+        document.getElementById('search-btn').addEventListener('click', handleSearch);
+        document.querySelector('.header h1').addEventListener('click', showMainContent); // Logo click listener
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            showMainContent(); // Ensure main content is visible and all products are rendered on load
+        });
+
+    </script>
+</body>
+</html>

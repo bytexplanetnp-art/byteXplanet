@@ -1,0 +1,18 @@
+.cta-contact {
+    text-align: center;
+    padding: 50px 5%;
+    margin-top: 30px;
+}
+
+.whatsapp-link {
+    display: inline-block;
+    background-color: #25d366; /* WhatsApp Green */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+    /* Add a WhatsApp icon if you use a font library like FontAwesome */
+}

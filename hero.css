@@ -1,0 +1,58 @@
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Simulate the glow/gradient effect */
+    background: radial-gradient(circle at 20% 50%, rgba(30, 144, 255, 0.1) 0%, transparent 50%);
+}
+
+.hero-content {
+    max-width: 50%;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    /* Use a gradient on the text for a premium look */
+    background: linear-gradient(90deg, #ffffff, var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    margin-bottom: 25px;
+    color: #a0a0a0;
+}
+
+.cta-button {
+    padding: 12px 30px;
+    background: linear-gradient(45deg, var(--color-primary), #4a00e0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(30, 144, 255, 0.4);
+    transition: transform 0.2s;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+}
+
+.hero-image-placeholder {
+    width: 40%;
+    height: 300px;
+    /* This needs a high-quality image background or 3D render to match the visual */
+    background-color: #333; 
+    border-radius: 10px;
+    box-shadow: 0 0 50px rgba(30, 144, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    font-size: 0.9em;
+}
